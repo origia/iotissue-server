@@ -8,15 +8,28 @@ var wss = null;
 
 app.use(multer({ dest: './uploads/'}))
 
-app.post('/image', function (req, res) {
-  wss.clients.forEach(function (client) {
+app.get('/sample', function (req, res) {
+  res.sendFile('sample.html', {root: '.'});
+});
+
+app.post('/image', function (req, res, next) {
+  if (!req.files.image || !req.files.image.path) {
+    return next(new Error('no file'));
+  }
+  var path = req.files.image.path;
+  processImage(path, function (err, result) {
+    if (err) {
+      return next(err);
+    }
+    wss.clients.forEach(function (client) {
+      client.send(JSON.stringify(result));
+    });
+    res.sendStatus(200);
   });
-  res.sendStatus(200);
 });
 
 var server = app.listen(5000, function () {
   var host = server.address().address
   var port = server.address().port
-  console.log('App listening at http://%s:%s', host, port);
   wss = new WebSocketServer({server: server});
 });
