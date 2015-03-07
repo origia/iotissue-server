@@ -6,7 +6,7 @@ var processImage    = require('./image-processor');
 
 var wss = null;
 
-app.use(multer({ dest: './uploads/'}))
+app.use(multer({ dest: './tmp/uploads/'}))
 
 app.get('/sample', function (req, res) {
   res.sendFile('sample.html', {root: '.'});
