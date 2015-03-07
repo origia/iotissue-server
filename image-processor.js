@@ -22,7 +22,11 @@ module.exports = function (image, callback) {
       } else {
         direction = 'right';
       }
-      cb(null, {direction: direction});
+      cb(null, {
+        direction: direction,
+        width: face.width,
+        height: face.height
+      });
     }
   ], function (err, data) {
     callback(err, data);
