@@ -4,7 +4,7 @@ DEPLOY_DIR = "/home/iotissue"
 APP_DIR = "/home/iotissue/iotissue_app"
 APP_NAME = "iotissue_app"
 
-env.hosts = ['iotissue@192.168.33.38']
+env.hosts = ['iotissue@iotissue.com']
 
 
 def package_dir():
