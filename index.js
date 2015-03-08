@@ -3,13 +3,14 @@ var multer          = require('multer');
 var app             = express();
 var WebSocketServer = require('ws').Server;
 var processImage    = require('./image-processor');
+var path            = require('path');
 
 var wss = null;
 
-app.use(multer({ dest: './tmp/uploads/'}))
+app.use(multer({ dest: path.join(__dirname, 'tmp/uploads/')}));
 
 app.get('/sample', function (req, res) {
-  res.sendFile('sample.html', {root: '.'});
+  res.sendFile('sample.html', {root: __dirname});
 });
 
 app.post('/image', function (req, res, next) {
