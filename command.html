@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Command</title>
+</head>
+<body>
+<h1>Control tissue box</h1>
+<button id="left">Left</button>
+<button id="right">Right</button>
+<br>
+<button id="reset">Reset</button>
+<script>
+  var ws = new WebSocket("ws://" + location.host + "/ws");
+  var sendSignal = function (message) {
+    ws.send(JSON.stringify(message));
+  };
+  document.getElementById('left').onclick = sendSignal.bind(sendSignal, {direction: 'left'});
+  document.getElementById('right').onclick = sendSignal.bind(sendSignal, {direction: 'right'});
+  document.getElementById('reset').onclick = sendSignal.bind(sendSignal, {reset: true});
+</script>
+</body>
+</html>
